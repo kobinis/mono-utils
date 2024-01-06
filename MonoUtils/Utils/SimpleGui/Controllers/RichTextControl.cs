@@ -94,7 +94,7 @@ namespace XnaUtils.SimpleGui.Controllers
             Vector2 size = _parser.MeasureText();
             Width = size.X + _spacing * 2;
             Height = size.Y + _spacing * 2;
-            Sprite = TextureBank.Inst.GetSprite("Small_ui");
+            Sprite = GuiManager.SmallBackTexture;
         }
 
         private void UpdateSize() 

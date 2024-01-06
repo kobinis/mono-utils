@@ -32,12 +32,8 @@ namespace XnaUtils.SimpleGui
 
         #region Back Texure
         public static Sprite BackTexture { get; set; }
+        public static Sprite SmallBackTexture { get; set; }
         public static Sprite ScrollTexture { get; set; }
-
-        public static Texture2D GetTexture()
-        {
-            return null;
-        }
 
         #endregion
 

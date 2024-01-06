@@ -99,7 +99,10 @@ namespace XnaUtils.Graphics
             else
             {
                 if (DebugUtils.Mode == ModeType.Release)
-                    return Sprite.Get("missing");
+                {
+                    throw new Exception($"Texture {id} was not found!");
+                    //return Sprite.Get("missing");
+                }
                 else
                     throw new Exception($"Texture {id} was not found!");
             }
