@@ -103,7 +103,9 @@ namespace XnaUtils.SimpleGui
             }            
             if (_drawTooltip >= TOOLTIP_DELAY_FRAMES)
             {
+                
                 _tooltip.Update(InputState.EmptyState);
+                _tooltip.Position = inputState.Cursor.Position + _tooltip.HalfSize + Vector2.One * 10;
             }
             //if (_guiDrawTooltip >= TOOLTIP_DELAY_FRAMES && _guiTooltip != null)
             //{

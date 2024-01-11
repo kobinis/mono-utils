@@ -36,30 +36,40 @@ namespace MonoUtils
         {
             _inputManager = new InputManager();
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            TextureBank.Inst.AddTexture("grey_panel", Content.Load<Texture2D>("Images/grey_panel"));
 
-            TextureBank.Inst.AddSprite(new Sprite9Sliced("grey_panel", 10, 10, 10, 10));
-         
 
+
+
+            FontBank.DefaultFont = Content.Load<SpriteFont>("MainFont");
             Canvas can = new Canvas(100, 100, _graphics.GraphicsDevice);
             can.Clear(Color.White);
             can.SetData();
-           // TextureBank.Inst.AddTexture("missing", can.GetTexture());
+            TextureBank.Inst.LoadContent(Content, "content\\Images", false);
+            TextureBank.Inst.AddSprite(new Sprite9Sliced("grey_panel", 10, 10, 10, 10));
+            TextureBank.Inst.AddSprite(new Sprite9Sliced("guiframe", 5, 5, 5, 5));
+
+            // TextureBank.Inst.AddTexture("missing", can.GetTexture());
+
+
+           
+            GuiManager.BackTexture = Sprite.Get("grey_panel");
+            GuiManager.SmallBackTexture = Sprite.Get("guiframe");
+            GuiManager.ScrollTexture = Sprite.Get("guiframe");
 
             _gui = new GuiManager();
             _gui._spriteBatch = _spriteBatch;
-            GuiManager.BackTexture = Sprite.Get("grey_panel");
-            GuiManager.BackTexture = Sprite.Get("grey_panel");
-            GuiManager.ScrollTexture = Sprite.Get("grey_panel");
-            FontBank.DefaultFont = Content.Load<SpriteFont>("MainFont");
             Viewport viewport = _graphics.GraphicsDevice.Viewport;
-            var vericalLayout = new VerticalLayout(new Vector2( viewport.Width, viewport.Height) * 0.5f);
-            RichTextControl text = new RichTextControl("Hello");            
+            var vericalLayout = new VerticalLayout(new Vector2( viewport.Width, viewport.Height) * 0.5f);            
+            vericalLayout.ShowFrame = true;
+            RichTextControl text = new RichTextControl("Hello#simage{BerserkRS,10}\n+#color{255,255,0}Bye#Image{BerserkRS}");            
+            
             vericalLayout.AddChild(text);
             var control = new GuiControl(Vector2.Zero, new Vector2(150, 100));
             control.Sprite = (Sprite)"grey_panel";
             control.CursorOverColor = Color.Yellow;
             vericalLayout.AddChild(control);
+            control.TooltipText = "#color{255,255,0}Tooltip\n#line{}#dcolor{}More text";
+            control.CursorOn += _gui.ToolTipHandler;
           //  control.Sprite = new Sprite("missing");
             _gui.Root = vericalLayout;
             
@@ -71,6 +81,7 @@ namespace MonoUtils
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
             _inputManager.Update(gameTime, this);
+
 
             _gui.Update(_inputManager.InputState);
             // TODO: Add your update logic here
